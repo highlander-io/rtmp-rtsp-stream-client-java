@@ -112,28 +112,28 @@ class RtmpSender(private val connectCheckerRtmp: ConnectCheckerRtmp,
           if (flvPacket.type == FlvType.VIDEO) {
             videoFramesSent++
             output?.let { output ->
-              Log.e(TAG, "ADAM error: 1", videoFramesSent)
+              Log.i(TAG, "ADAM error: 1 $videoFramesSent")
               size = commandsManager.sendVideoPacket(flvPacket, output)
-              Log.e(TAG, "ADAM error: 2")
+              Log.i(TAG, "ADAM error: 2")
               if (isEnableLogs) {
                 Log.i(TAG, "wrote Video packet, size $size")
               }
             }
           } else {
             audioFramesSent++
-            Log.e(TAG, "ADAM error: 3", audioFramesSent)
+            Log.i(TAG, "ADAM error: 3 $audioFramesSent")
             output?.let { output ->
               size = commandsManager.sendAudioPacket(flvPacket, output)
-              Log.e(TAG, "ADAM error: 4")
+              Log.i(TAG, "ADAM error: 4")
               if (isEnableLogs) {
                 Log.i(TAG, "wrote Audio packet, size $size")
               }
             }
           }
           //bytes to bits
-          Log.e(TAG, "ADAM error: 5", size)
+          Log.i(TAG, "ADAM error: 5 $size")
           bitrateManager.calculateBitrate(size * 8L)
-          Log.e(TAG, "ADAM error: 6")
+          Log.i(TAG, "ADAM error: 6")
         } catch (e: Exception) {
           //InterruptedException is only when you disconnect manually, you don't need report it.
           if (e !is InterruptedException) {
