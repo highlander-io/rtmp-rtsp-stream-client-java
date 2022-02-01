@@ -249,10 +249,15 @@ class CommandsManager {
     if (akamaiTs) {
       flvPacket.timeStamp = ((System.nanoTime() / 1000 - startTs) / 1000)
     }
+    Log.i(TAG, "ADAM sendVideoPacket error: 1")
     val video = Video(flvPacket, streamId)
+        Log.i(TAG, "ADAM sendVideoPacket error: 2")
     video.writeHeader(output)
+        Log.i(TAG, "ADAM sendVideoPacket error: 3")
     video.writeBody(output)
+        Log.i(TAG, "ADAM sendVideoPacket error: 4")
     output.flush()
+        Log.i(TAG, "ADAM sendVideoPacket error: 5")
     return video.header.getPacketLength() //get packet size with header included to calculate bps
   }
 
