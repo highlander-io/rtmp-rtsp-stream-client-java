@@ -121,19 +121,28 @@ abstract class RtmpMessage(basicHeader: BasicHeader) {
   @Throws(IOException::class)
   fun writeBody(output: OutputStream) {
     val chunkSize = RtmpConfig.writeChunkSize
+    Log.i(TAG, "ADAM writeBody error: 1")
     val bytes = storeBody()
+        Log.i(TAG, "ADAM writeBody error: 2")
     var pos = 0
     var length = getSize()
+        Log.i(TAG, "ADAM writeBody error: 3 $length")
 
     while (length > chunkSize) {
       // Write packet for chunk
+              Log.i(TAG, "ADAM writeBody error: 4")
       output.write(bytes, pos, chunkSize)
+                    Log.i(TAG, "ADAM writeBody error: 5")
       length -= chunkSize
       pos += chunkSize
       // Write header for remain chunk
+              Log.i(TAG, "ADAM writeBody error: 5.5 $length")
       header.writeHeader(BasicHeader(ChunkType.TYPE_3, header.basicHeader.chunkStreamId), output)
+                          Log.i(TAG, "ADAM writeBody error: 6")
     }
+     Log.i(TAG, "ADAM writeBody error: 7")
     output.write(bytes, pos, length)
+     Log.i(TAG, "ADAM writeBody error: 8")
   }
 
   abstract fun readBody(input: InputStream)
